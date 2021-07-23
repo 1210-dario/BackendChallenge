@@ -4,8 +4,10 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 
+
 let indexRouter = require('./src/routes/index');
 let weatherRouter = require('./src/routes/weather');
+let cityWeatherRouter = require('./src/routes/cityWeather');
 
 let app = express();
 
@@ -21,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/weather', weatherRouter);
+app.use('/cityWeather', cityWeatherRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

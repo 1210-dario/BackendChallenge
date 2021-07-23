@@ -15,5 +15,6 @@ module.exports = {
     },
     log:{
         level: process.env.LOG_LEVEL
-    }
+    },
+    databaseURL: process.env.DATABASE_URL
 };

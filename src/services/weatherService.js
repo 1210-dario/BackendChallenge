@@ -36,8 +36,6 @@ class WeatherRepository {
 
 
               return {
-                  description: response.data.weather[0].description,
-                  mainInfo: response.data.main,
                   temperature: response.data.main.temp,
                   temperatureMin: response.data.main.temp_min,
                   temperatureMax: response.data.main.temp_max

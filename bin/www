@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+
 /**
  * Module dependencies.
  */
@@ -7,6 +8,18 @@
 var app = require('../app');
 var debug = require('debug')('timejobschallenge:server');
 var http = require('http');
+const mongooseLoader = require('../src/loaders/mongoose');
+const logger = require('../src/loaders/logger');
+
+/**
+ * DB Connection Load
+ */
+const dbLoader = async ()=>{
+  await mongooseLoader();
+  logger.info('DB loaded and connected');
+}
+
+dbLoader();
 
 /**
  * Get port from environment and store in Express.
