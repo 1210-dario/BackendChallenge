@@ -1,17 +1,17 @@
 const express = require('express');
-const WeatherService = require('../services/weatherService');
-const weatherService = new WeatherService();
+const CityWeatherService = require('../services/cityWeatherService');
+const cityWeatherService = new CityWeatherService();
 
 /**
  * @param {express.Request} req
  * @param {express.Response} res
  */
 
-const weatherByCityDb = async(req,res,next) =>{
+const getWeatherCityDb = async(req,res,next) =>{
     try{
         const city = req.params.city;
-        const weather = await weatherService.weatherByCityName(city);
-        res.json(weather); 
+        const cityWeather = await cityWeatherService.findByCityName(city);
+        res.json(cityWeather); 
         
     }catch(err){
         next(err);
@@ -19,5 +19,5 @@ const weatherByCityDb = async(req,res,next) =>{
 }
 
 module.exports = {
-    weatherByCityDb
+    getWeatherCityDb
 }

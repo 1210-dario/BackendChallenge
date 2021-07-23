@@ -10,7 +10,7 @@ class CityWeatherService {
         return await CityWeather.findById(id);
     }
 
-    async findByName(name){
+    async findByCityName(name){
         return await CityWeather.findOne({name});
     }
 

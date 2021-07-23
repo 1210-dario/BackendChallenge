@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { weatherByCity} = require('../controllers/weather');
+const { weatherByCity } = require('../controllers/weather');
+const { getRequestValidations , cityExist } = require('../middlewares/weather');
 
 /* GET users listing. */
-router.get('/:city', weatherByCity);
+router.get('/:city',getRequestValidations,cityExist, weatherByCity);
 router.post('/');
 
 module.exports = router;

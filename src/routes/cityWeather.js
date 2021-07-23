@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { weatherByCityDb } = require('../controllers/cityWeather');
+const { getWeatherCityDb } = require('../controllers/cityWeather');
 
 /* GET users listing. */
-router.get('/:city', weatherByCityDb);
+router.get('/:city', getWeatherCityDb);
 
 
 module.exports = router;
