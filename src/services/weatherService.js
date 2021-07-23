@@ -21,30 +21,38 @@ class WeatherRepository {
     }
 
     async weatherByCityName(city){
-        try{
-            const instance = axios.create({
-                baseURL: `${this.pathBase}`,
-                params: {
-                    'appid': this.appid,
-                    'units': this.units,
-                    'lang': this.lang,
-                    'q': city 
-                },                
-              }); 
-              
-              const response = await instance.get();
-
-
-              return {
-                  temperature: response.data.main.temp,
-                  temperatureMin: response.data.main.temp_min,
-                  temperatureMax: response.data.main.temp_max
-              }
-
-        }catch(err){
-            throw err;
+        
+        const instance = axios.create({
+            baseURL: `${this.pathBase}`,
+            params: {
+                'appid': this.appid,
+                'units': this.units,
+                'lang': this.lang,
+                'q': city 
+            },                
+            });
+        let randomNumber = Math.floor(Math.random() * 100);
+        if(this.executeApiCall(randomNumber)){
+                
+            const response = await instance.get();
+    
+            return {
+                temperature: response.data.main.temp,
+                temperatureMin: response.data.main.temp_min,
+                temperatureMax: response.data.main.temp_max
+            }
+        }else{
+            throw new Error();
         }
-    }
+    };
+    executeApiCall = (randomNumber,contador=0)=>{
+        if(randomNumber >= 0 && randomNumber < 15 && contador < 3){
+            contador++;
+            randomNumber = Math.floor(Math.random() * 100);
+            return this.executeApiCall(randomNumber,contador);
+        }
+        return randomNumber >= 15;
+    };
 }
 
 module.exports = WeatherRepository ;
