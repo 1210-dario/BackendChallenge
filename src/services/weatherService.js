@@ -1,23 +1,23 @@
-const axios = require('axios');
-const config = require('../config');
-const logger = require('../loaders/logger');
+const axios = require('axios')
+const config = require('../config')
+const logger = require('../loaders/logger')
 
 axios.interceptors.request.use(function (config) {
-    logger.info(config);
-    return config;
+    logger.info(config)
+    return config
 }, function (error) {
-    logger.info(error);
-    return Promise.reject(error);
-});
+    logger.info(error)
+    return Promise.reject(error)
+})
 
 
 class WeatherRepository {
 
     constructor(){
-        this.units = 'metric';
-        this.lang = 'es';
-        this.pathBase = config.openweathermap.pathBase;
-        this.appid = config.openweathermap.apikey;
+        this.units = 'metric'
+        this.lang = 'es'
+        this.pathBase = config.openweathermap.pathBase
+        this.appid = config.openweathermap.apikey
     }
 
     async weatherByCityName(city){
@@ -30,11 +30,11 @@ class WeatherRepository {
                 'lang': this.lang,
                 'q': city 
             },                
-            });
-        let randomNumber = Math.floor(Math.random() * 100);
+        })
+        let randomNumber = Math.floor(Math.random() * 100)
         if(this.executeApiCall(randomNumber)){
                 
-            const response = await instance.get();
+            const response = await instance.get()
     
             return {
                 temperature: response.data.main.temp,
@@ -42,17 +42,17 @@ class WeatherRepository {
                 temperatureMax: response.data.main.temp_max
             }
         }else{
-            throw new Error();
+            throw new Error()
         }
-    };
-    executeApiCall = (randomNumber,contador=0)=>{
+    }
+    executeApiCall (randomNumber,contador=0)  {
         if(randomNumber >= 0 && randomNumber < 15 && contador < 3){
-            contador++;
-            randomNumber = Math.floor(Math.random() * 100);
-            return this.executeApiCall(randomNumber,contador);
+            contador++
+            randomNumber = Math.floor(Math.random() * 100)
+            return this.executeApiCall(randomNumber,contador)
         }
-        return randomNumber >= 15;
-    };
+        return randomNumber >= 15
+    }
 }
 
-module.exports = WeatherRepository ;
+module.exports = WeatherRepository 

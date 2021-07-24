@@ -1,12 +1,12 @@
-const winston = require('winston');
+const winston = require('winston')
 const config = require('../../config')
 
 
 
-const transports = [];
+const transports = []
 transports.push(
     new winston.transports.Console(),
-);
+)
 
 const loggerInstance = winston.createLogger({
     level: config.log.level,
@@ -14,4 +14,4 @@ const loggerInstance = winston.createLogger({
     transports 
 })
 
-module.exports = loggerInstance;
+module.exports = loggerInstance

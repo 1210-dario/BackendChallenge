@@ -1,4 +1,4 @@
-const CityWeather = require('../models/cityWeather');
+const CityWeather = require('../models/cityWeather')
 
 class CityWeatherService {
 
@@ -7,12 +7,12 @@ class CityWeatherService {
     }
 
     async findByCityName(name){
-        return await CityWeather.findOne({name});
+        return await CityWeather.findOne({name})
     }
 
     async createCityWeather(cityWeather){
-        return await CityWeather.create(cityWeather);
+        return await CityWeather.create(cityWeather)
     }
 }
 
-module.exports = CityWeatherService;
+module.exports = CityWeatherService

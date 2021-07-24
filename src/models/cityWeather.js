@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const mongoose = require('mongoose')
+const { Schema } = mongoose
 
 const cityWeatherSchema = new Schema({
     name: String,
@@ -8,6 +8,6 @@ const cityWeatherSchema = new Schema({
     temperatureMax:   Number,
 },
 {timestamps: true}
-);
+)
 
-module.exports = mongoose.model('cityWeather',cityWeatherSchema);
+module.exports = mongoose.model('cityWeather',cityWeatherSchema)

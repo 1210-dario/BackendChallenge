@@ -1,12 +1,12 @@
-const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 
-const envFound = dotenv.config();
+const envFound = dotenv.config()
 
 if(!envFound){
-    throw new Error("Couldn't find .env file.");
-};
+    throw new Error('Could not find .env file.')
+}
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development' ;
+process.env.NODE_ENV = process.env.NODE_ENV || 'development' 
 
 module.exports = {
     openweathermap:{
@@ -17,4 +17,4 @@ module.exports = {
         level: process.env.LOG_LEVEL
     },
     databaseURL: process.env.DATABASE_URL
-};
+}
