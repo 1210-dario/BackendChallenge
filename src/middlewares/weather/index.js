@@ -6,21 +6,7 @@ const statusCodes = require('../../constants/statusCodes');
 const statusMessages = require('../../constants/statusMessages');
 const {setResponseWithError, setResponseWithOk} = require('../../util/common-response');
 
-const _cityRequired = check('city', statusMessages.CITY_REQUIRED).not().isEmpty();
-const _cityIsString = check('city',statusMessages.CITY_IS_STRING).isString();
-
-const cityExist = async(req, res, next)=>{
-
-    const cityFound = await cityWeatherService.findByCityName(req.params.city);
-
-    if(cityFound){
-        let delay = getDelay(req.header.requestArrivalDate);
-        res.header({delay});
-        setResponseWithOk(res,statusCodes.OK,statusMessages.SUCCESS,'ok',cityFound);
-    }else{
-        next()
-    }
-};
+const _cityIsString = check('city',statusMessages.CITY_IS_STRING).not().isNumeric();
 
 const validResult = (req, res, next) =>{
     const errors = validationResult(req);
@@ -28,6 +14,22 @@ const validResult = (req, res, next) =>{
         return setResponseWithError(res,statusCodes.BAD_REQUEST,statusMessages.VALIDATION_ERRORS,'error',errors.errors);        
     }   
     next();
+};
+
+const cityExist = async(req, res, next)=>{
+
+    const cityFound = await cityWeatherService.findByCityName(req.params.city);
+
+    if(cityFound){
+        const {name,temperature,temperatureMin,temperatureMax} = cityFound;
+        const cityWeatherFound = {name, temperature, temperatureMin, temperatureMax};
+        
+        let delay = getDelay(req.header.requestArrivalDate);
+        res.header({delay});
+        setResponseWithOk(res,statusCodes.OK,statusMessages.SUCCESS,'ok',cityWeatherFound);
+    }else{
+        next()
+    }
 };
 
 const delayInit = async(req,res,next)=>{
@@ -41,7 +43,6 @@ const getDelay = (initialDate)=>{
 };
 
 const getRequestValidations = [
-    _cityRequired,
     _cityIsString,
     validResult,
 ]

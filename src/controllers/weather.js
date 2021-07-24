@@ -18,16 +18,15 @@ const weatherByCity = async(req,res,next) =>{
         const city = req.params.city;
         const weather = await weatherService.weatherByCityName(city);
         if(weather){
-            const cityWeather = {name: city,temperature: weather.temperature, temperatureMin: weather.temperatureMin, temperatureMax : weather.temperatureMax};
+            const cityWeather = {name: city, ...weather};
     
             await cityWeatherService.createCityWeather(cityWeather);
-    
+            
             let delay = getDelay(req.header.requestArrivalDate);
             res.header({delay});
-            setResponseWithOk(res,statusCodes.OK,statusMessages.SUCCESS,'ok',cityWeather); 
+            return setResponseWithOk(res,statusCodes.OK,statusMessages.SUCCESS,'ok',cityWeather); 
         }
-        setResponseWithError(res,statusCodes.BAD_REQUEST,statusMessages.BAD_REQUEST,'error',weather);
-        
+        setResponseWithError(res,statusCodes.BAD_REQUEST,statusMessages.BAD_REQUEST,'error'); 
     }catch(err){
         next(err);
     }

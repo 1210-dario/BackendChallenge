@@ -1,4 +1,4 @@
-
+const { getDelay } = require('../middlewares/weather');
 
 function setResponseWithError(res, status, message, code = 'error', data = []) {
     return res.status(status).send({ code, message, data});
