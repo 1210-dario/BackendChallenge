@@ -1,7 +1,7 @@
 # Backend Challenge
 
 This is a repository for the Node.JS challenge for Time Jobs.
-## Envinroment setup
+## Environment setup
 
 1) Create database
 2) Copy .env.example to .env and fill with database url
