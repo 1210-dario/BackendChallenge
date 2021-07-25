@@ -17,9 +17,7 @@ const validResult = (req, res, next) =>{
 }
 
 const cityExist = async(req, res, next)=>{
-
     const cityFound = await cityWeatherService.findByCityName(req.params.city)
-
     if(cityFound){
         const {name,temperature,temperatureMin,temperatureMax} = cityFound
         const cityWeatherFound = {name, temperature, temperatureMin, temperatureMax}

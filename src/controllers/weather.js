@@ -10,6 +10,7 @@ const statusMessages = require('../constants/statusMessages')
 const weatherByCity = async(req,res,next) =>{
     try{
         const city = req.params.city
+        
         const weather = await weatherService.weatherByCityName(city)
         if(weather){
             const cityWeather = {name: city, ...weather}

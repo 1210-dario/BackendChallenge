@@ -31,16 +31,19 @@ class WeatherRepository {
                 'q': city 
             },                
         })
+        
         let randomNumber = Math.floor(Math.random() * 100)
         if(this.executeApiCall(randomNumber)){
                 
             const response = await instance.get()
-    
-            return {
-                temperature: response.data.main.temp,
-                temperatureMin: response.data.main.temp_min,
-                temperatureMax: response.data.main.temp_max
+            if(response){
+                return {
+                    temperature: response.data.main.temp,
+                    temperatureMin: response.data.main.temp_min,
+                    temperatureMax: response.data.main.temp_max
+                }
             }
+            return undefined
         }else{
             throw new Error()
         }
