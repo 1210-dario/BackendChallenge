@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const { weatherByCity } = require('../controllers/weather')
+const { getRequestValidations , cityExist, delayInit } = require('../middlewares/weather')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+/* GET a City Weather temperature, min and max */
+router.get('/:city',delayInit, getRequestValidations,cityExist, weatherByCity)
 
-module.exports = router;
+module.exports = router
